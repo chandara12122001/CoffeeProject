@@ -37,7 +37,7 @@ void displayList(List *ls)
     }
     while (node != NULL)
     {
-        cout << node->id << setw(10) << node->name << setw(10) << node->price << setw(10) << node->stocks << endl;
+        cout << node->id << setw(20) << node->name << setw(20) << "$" << node->price << setw(20) << node->stocks << endl;
         node = node->next;
     }
 }
@@ -101,11 +101,11 @@ void writeNewFile(List *ls)
     {
         if (node->next != NULL)
         {
-            file << node->id << setw(10) << node->name << setw(10) << node->price << setw(10) << node->stocks << "\n";
+            file << node->id << setw(20) << node->name << setw(20) << node->price << setw(20) << node->stocks << "\n";
         }
         else
         {
-            file << node->id << setw(10) << node->name << setw(10) << node->price << setw(10) << node->stocks;
+            file << node->id << setw(20) << node->name << setw(20) << node->price << setw(20) << node->stocks;
         }
         node = node->next;
     }
@@ -121,7 +121,7 @@ void writeExistingFile(List *ls)
     while (node != NULL)
     {
         file << "\n"
-             << node->id << setw(10) << node->name << setw(10) << node->price << setw(10) << node->stocks;
+             << node->id << setw(20) << node->name << setw(20) << node->price << setw(20) << node->stocks;
         node = node->next;
     }
     file.close();
@@ -137,7 +137,7 @@ void readFromFile(List *ls)
     file.open("coffeeList.txt", ios::in);
     while (!file.eof())
     {
-        file >> id >> setw(10) >> name >> setw(10) >> price >> setw(10) >> stocks;
+        file >> id >> setw(20) >> name >> setw(20) >> price >> setw(20) >> stocks;
         insertEnd(ls, id, name, price, stocks);
     }
     file.close();
@@ -158,7 +158,7 @@ void displayAdminMenu()
 }
 void displayTableHeader()
 {
-    cout << "ID" << setw(10) << "Coffee" << setw(10) << "Price" << setw(10) << "Stocks" << endl;
+    cout << "ID" << setw(20) << "Coffee" << setw(20) << "Price" << setw(20) << "Stocks" << endl;
 }
 void displayCoffeeList(List *ls)
 {
@@ -267,7 +267,7 @@ void findByID(List *ls, string id)
         if (node->id == id)
         {
             displayTableHeader();
-            cout << node->id << setw(10) << node->name << setw(10) << node->price << setw(10) << node->stocks << endl;
+            cout << node->id << setw(20) << node->name << setw(20) << node->price << setw(20) << node->stocks << endl;
             flag = 1;
             break;
         }
