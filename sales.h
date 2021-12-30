@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 using namespace std;
 struct saleElement
 {
@@ -92,15 +93,31 @@ void saleWriteFile(saleList *ls)
     saleElement *sale = new saleElement();
     sale = ls->head;
     fstream file;
+    file.open("sale.txt", ios::out);
+    while (sale != NULL)
+    {
+        if (sale->next != NULL)
+        {
+            file << sale->saleId << setw(10) << sale->userId << setw(10) << sale->coffeeId << setw(10) << sale->coffeePrice << setw(10) << sale->qty << "\n";
+        }
+        else
+        {
+            file << sale->saleId << setw(10) << sale->userId << setw(10) << sale->coffeeId << setw(10) << sale->coffeePrice << setw(10) << sale->qty;
+        }
+        sale = sale->next;
+    }
+    file.close();
+}
+void writeExistingSaleFile(saleList *ls)
+{
+    saleElement *sale = new saleElement();
+    sale = ls->head;
+    fstream file;
     file.open("sale.txt", ios::app);
     while (sale != NULL)
     {
-        if(sale->next !=NULL){
-            file << sale->saleId << " " << sale->userId << " " << sale->coffeeId << " " << sale->coffeePrice << " " << sale->qty<<"\n";
-        }
-        else{
-            file << sale->saleId << " " << sale->userId << " " << sale->coffeeId << " " << sale->coffeePrice << " " << sale->qty;
-        }
+        file << "\n"
+             << sale->saleId << setw(10) << sale->userId << setw(10) << sale->coffeeId << setw(10) << sale->coffeePrice << setw(10) << sale->qty;
         sale = sale->next;
     }
     file.close();
@@ -127,5 +144,5 @@ void saleWriteTotalCash(saleList *ls)
         totalCash += sale->coffeePrice * sale->qty;
         sale = sale->next;
     }
-    cout << "The total sales in cash is: "<<totalCash<<endl;
+    cout << "The total sales in cash is: " << totalCash << endl;
 }

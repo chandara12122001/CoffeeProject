@@ -313,7 +313,10 @@ void orderCoffee()
     cout << "Enter the quantity you'd like to order: (1-n)";
     cin >> qty;
     salesInsertBegin(salelist, (rand() % 100) + 1, "0", id, returnCoffeePrice(ls, id) * qty, qty);
-    saleWriteFile(salelist);
+    if (fileExists("sale.txt"))
+        writeExistingSaleFile(salelist);
+    else
+        saleWriteFile(salelist);
     readBestSell(bestselllist);
     bestSellInsertBegin(bestselllist, id, qty);
     bestSellWriteFile(bestselllist);
@@ -356,7 +359,7 @@ void operation(List *ls)
                 system("CLS");
                 switch (input)
                 {
-                //create
+                // create
                 case 1:
                 {
                     cout << "Enter the coffee ID ";
@@ -374,13 +377,13 @@ void operation(List *ls)
                         writeNewFile(ls);
                 }
                 break;
-                //read
+                // read
                 case 2:
                 {
                     displayCoffeeList(ls);
                 }
                 break;
-                //edit
+                // edit
                 case 3:
                 {
                     displayCoffeeList(ls);
@@ -392,7 +395,7 @@ void operation(List *ls)
                     writeNewFile(ls);
                 }
                 break;
-                //delete
+                // delete
                 case 4:
                 {
                     readFromFile(ls);
